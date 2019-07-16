@@ -1,0 +1,11 @@
+@import "app.scss";
+
+// COLORS
+$white: #ecf0f1;
+$black: #2c3e50;
+
+body {
+  margin: 20px;
+  background-color: $white;
+  color: $black;
+}

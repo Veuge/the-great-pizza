@@ -1,0 +1,9 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  max-width: 70vw;
+  margin: auto;
+  .app-name {
+    text-align: center;
+  }
+}

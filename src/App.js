@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { connect } from "react-redux";
+import { startFetchPizzas } from "./actions/pizzaActions";
+
+class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(startFetchPizzas());
+  }
+
+  render() {
+    const { error, loading, pizzaList } = this.props;
+    console.log(this.props);
+    return (
+      <div className="app">
+        <h1 className="app-name">The Great Pizza</h1>
+        {error && <p>ERROR</p>}
+        {loading && <p>Loading...</p>}
+        <ul>
+          {pizzaList.map((pizza, index) => (
+            <li key={`pizza-${pizza.pizzaId}`}>{pizza.name}</li>
+          ))}
+        </ul>
+        <pre>{JSON.stringify(this.props)}</pre>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log(">>>>", state);
+  return {
+    pizzaList: state.pizzaReducer.pizzaList,
+    loading: state.pizzaReducer.loading,
+    error: state.pizzaReducer.error
+  }
+};
+
+export default connect(mapStateToProps)(App);
