@@ -18,15 +18,13 @@ export default function pizzaReducer(state = initialState, action) {
         loading: true,
         error: null
       };
-    case FETCH_PIZZAS_SUCCESS: {
-      console.log("reducer", action.payload);
+    case FETCH_PIZZAS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
         pizzaList: action.payload.pizzas
       };
-    }
     case FETCH_PIZZAS_FAILURE:
       return {
         ...state,

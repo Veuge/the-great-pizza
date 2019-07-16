@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { startFetchPizzas } from "./actions/pizzaActions";
+import { getAllPizzasThunk, createNewPizzaThunk } from "./api/getAllPizzas";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(startFetchPizzas());
+  state = {
+    pizzaName: "",
+    pizzaPrice: ""
+  }
+  async componentDidMount() {
+    await this.props.getAllPizzas();
+  }
+
+  addNewPizza = () => {
+
   }
 
   render() {
+    const { pizzaName, pizzaPrice } = this.state;
     const { error, loading, pizzaList } = this.props;
-    console.log(this.props);
     return (
       <div className="app">
         <h1 className="app-name">The Great Pizza</h1>
@@ -18,22 +26,28 @@ class App extends Component {
         {loading && <p>Loading...</p>}
         <ul>
           {pizzaList.map((pizza, index) => (
-            <li key={`pizza-${pizza.pizzaId}`}>{pizza.name}</li>
+            <li key={`pizza-${pizza.id}`}>{pizza.name}</li>
           ))}
         </ul>
-        <pre>{JSON.stringify(this.props)}</pre>
+        <form>
+          <input type="text" value={pizzaName} />
+          <input type="text" value={pizzaPrice} />
+          <button onClick={this.addNewPizza}>Add Pizza</button>
+        </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  console.log(">>>>", state);
-  return {
+const mapStateToProps = state => ({
     pizzaList: state.pizzaReducer.pizzaList,
     loading: state.pizzaReducer.loading,
     error: state.pizzaReducer.error
-  }
+})
+
+const mapDispatchToProps = {
+  getAllPizzas: getAllPizzasThunk,
+  createNewPizza: createNewPizzaThunk
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
