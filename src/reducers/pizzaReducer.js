@@ -1,7 +1,10 @@
 import {
   FETCH_PIZZAS,
   FETCH_PIZZAS_SUCCESS,
-  FETCH_PIZZAS_FAILURE
+  FETCH_PIZZAS_FAILURE,
+  CREATE_PIZZA,
+  CREATE_PIZZA_SUCCESS,
+  CREATE_PIZZA_FAILURE
 } from "../actions/pizzaActions";
 
 const initialState = {
@@ -32,6 +35,24 @@ export default function pizzaReducer(state = initialState, action) {
         pizzaList: [],
         error: action.payload.error
       };
+    case CREATE_PIZZA:
+      return {
+        ...state,
+        pizzaList: [
+          ...state.pizzaList,
+          action.payload
+        ]
+      }
+    case CREATE_PIZZA_SUCCESS:
+      return {
+        ...state,
+        message: action.payload
+      }
+    case CREATE_PIZZA_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      }
     default:
       return state;
   }

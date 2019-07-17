@@ -9,3 +9,10 @@ body {
   background-color: $white;
   color: $black;
 }
+
+.pizza-list {
+  li {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

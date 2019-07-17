@@ -1,39 +1,44 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { getAllPizzasThunk, createNewPizzaThunk } from "./api/getAllPizzas";
+import { getAllPizzasThunk, createPizzaThunk } from "./api/getAllPizzas";
+import PizzaComponent from "./components/PizzaComponent";
+import PizzaForm from "./components/PizzaForm";
 
 class App extends Component {
   state = {
-    pizzaName: "",
-    pizzaPrice: ""
+    pizzaDetails: null
   }
   async componentDidMount() {
     await this.props.getAllPizzas();
   }
+  showPizzaDetails = (index) => {
+    this.setState({
+      pizzaDetails: index
+    })
+  }
 
-  addNewPizza = () => {
-
+  onSaveNewPizza = (payload) => {
+    this.props.createPizza(payload);
   }
 
   render() {
-    const { pizzaName, pizzaPrice } = this.state;
+    const { pizzaDetails } = this.state;
     const { error, loading, pizzaList } = this.props;
     return (
       <div className="app">
         <h1 className="app-name">The Great Pizza</h1>
         {error && <p>ERROR</p>}
         {loading && <p>Loading...</p>}
-        <ul>
+        <ul className="pizza-list">
           {pizzaList.map((pizza, index) => (
-            <li key={`pizza-${pizza.id}`}>{pizza.name}</li>
+            <li onClick={() => this.showPizzaDetails(index)} key={`pizza-${pizza.id}`}>{pizza.name}</li>
           ))}
         </ul>
-        <form>
-          <input type="text" value={pizzaName} />
-          <input type="text" value={pizzaPrice} />
-          <button onClick={this.addNewPizza}>Add Pizza</button>
-        </form>
+        <PizzaForm onSaveChanges={this.onSaveNewPizza} />
+        {pizzaDetails !== null && (
+          <PizzaComponent pizza={pizzaList[pizzaDetails]} />
+        )}
       </div>
     );
   }
@@ -47,7 +52,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getAllPizzas: getAllPizzasThunk,
-  createNewPizza: createNewPizzaThunk
+  createPizza: createPizzaThunk
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

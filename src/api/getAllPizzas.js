@@ -2,14 +2,17 @@ import axios from "axios";
 import {
     fetchPizzas,
     fetchPizzasSuccess,
-    fetchPizzasFailure
+    fetchPizzasFailure,
+    createPizza,
+    createPizzaSuccess,
+    createPizzaFailure
 } from "../actions/pizzaActions";
 
 const getAllPizzasThunk = () => {
     return async (dispatch) => {
         dispatch(fetchPizzas());
         try {
-            const res = await axios("/pizza");
+            const res = await axios.get("/pizza");
             dispatch(fetchPizzasSuccess(res.data));
         } catch(err) {
             dispatch(fetchPizzasFailure(err));
@@ -17,16 +20,16 @@ const getAllPizzasThunk = () => {
     }
 }
 
-const createNewPizzaThunk = () => {
+const createPizzaThunk = (payload) => {
     return async (dispatch) => {
-        dispatch(fetchPizzas());
         try {
-            const res = await axios("/pizza");
-            dispatch(fetchPizzasSuccess(res.data));
+            const res = await axios.post("/pizza", payload);
+            dispatch(createPizza(payload));
+            dispatch(createPizzaSuccess(res));
         } catch(err) {
-            dispatch(fetchPizzasFailure(err));
+            dispatch(createPizzaFailure(err))
         }
     }
 }
 
-export { getAllPizzasThunk };
+export { getAllPizzasThunk, createPizzaThunk };
