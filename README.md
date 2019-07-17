@@ -4,11 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### To run locally
 1. Install the dependencies 
-```
+```bash
 $ yarn
 ```
 2. Start the application
-```
+```bash
 $ yarn start
 ```
 

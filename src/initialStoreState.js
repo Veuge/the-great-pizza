@@ -21,7 +21,7 @@ const initialStoreState = {
             price: 20.5
         }
     ],
-    ingredientsList: [
+    ingredientList: [
         {
             id: 1,
             name: "Cheese"
