@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllPizzasThunk, createPizzaThunk } from "./api/getAllPizzas";
+import { getAllPizzasThunk, createPizzaThunk } from "./api/pizzasApi";
 import { getAllIngredientsThunk } from "./api/ingredientsApi";
 import PizzaComponent from "./components/PizzaComponent";
 import PizzaForm from "./components/PizzaForm";
@@ -40,9 +40,15 @@ class App extends Component {
             <li onClick={() => this.showPizzaDetails(pizza)} key={`pizza-${pizza.id}`}>{pizza.name}</li>
           ))}
         </ul>
-        <PizzaForm onSaveChanges={this.onSaveNewPizza} ingredients={ingredientList} />
+        <PizzaForm 
+          onSaveChanges={this.onSaveNewPizza}
+          ingredients={ingredientList}
+        />
         {pizzaDetails !== null && (
-          <PizzaComponent pizza={pizzaDetails} onDeletePizza={this.onDeletePizza} />
+          <PizzaComponent 
+            pizza={pizzaDetails}
+            onDeletePizza={this.onDeletePizza}
+          />
         )}
       </div>
     );

@@ -55,7 +55,8 @@ const updatePizzaThunk = pizza => {
     try {
       const payload = {
         name: pizza.name,
-        price: pizza.price
+        price: pizza.price,
+        ingredients: pizza.ingredients
       };
       const res = await axios.put(`/pizza/${pizza.id}`, payload);
       dispatch(updatePizza({...payload, id: pizza.id}));

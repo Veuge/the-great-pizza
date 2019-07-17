@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { deletePizzaThunk, updatePizzaThunk } from "../api/getAllPizzas";
+import { deletePizzaThunk, updatePizzaThunk } from "../api/pizzasApi";
 import PizzaForm from "./PizzaForm";
 
 class PizzaComponent extends Component {
@@ -28,7 +28,7 @@ class PizzaComponent extends Component {
     });
     this.setState({
       isEditing: false
-    })
+    });
   }
 
   render() {

@@ -22,15 +22,13 @@ class PizzaForm extends Component {
   handlePizzaNameChange = (e) => {
     this.setState({
       pizzaName: e.target.value
-    });
-    this.validateForm();
+    }, this.validateForm);
   }
   
   handlePizzaPriceChange = (e) => {
     this.setState({
       pizzaPrice: e.target.value
-    });
-    this.validateForm();
+    }, this.validateForm);
   }
 
   handleIngredientCheck = (e, ingredientId) => {
@@ -49,7 +47,9 @@ class PizzaForm extends Component {
 
   validateForm = () => {
     const { pizzaName, pizzaPrice } = this.state;
-    const isValidForm = pizzaName !== "" && pizzaPrice !== "" && typeof Number(pizzaPrice) == "number";
+    const isValidForm = pizzaName !== "" 
+      && pizzaPrice !== "" 
+      && typeof Number(pizzaPrice) == "number";
     this.setState({
       isValidForm
     });
