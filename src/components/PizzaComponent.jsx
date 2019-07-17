@@ -1,60 +1,73 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { deletePizzaThunk, updatePizzaThunk } from "../api/getAllPizzas";
+import PizzaForm from "./PizzaForm";
 
 class PizzaComponent extends Component {
   state = {
-    editingPizza: false,
-    pizzaName: "",
-    pizzaPrice: ""
+    isEditing: false
   }
 
-  componentDidMount() {
+  onDeletePizza = () => {
+    const { pizza } = this.props;
+    this.props.deletePizza(pizza);
+    this.props.onDeletePizza();
+  }
+
+  onEditPizza = () => {
     this.setState({
-      pizzaName: this.props.pizza.name,
-      pizzaPrice: this.props.pizza.price
+      isEditing: true
     })
   }
 
-  updateInputValue = (e, state) => {
+  onSaveEditing = (payload) => {
+    const { pizza } = this.props;
+    this.props.editPizza({
+      ...payload,
+      id: pizza.id
+    });
     this.setState({
-      [state]: e.target.value
+      isEditing: false
     })
-  }
-
-  toggleEdition = () => {
-    this.setState((currentState) => ({
-      editingPizza: !currentState.editingPizza
-    }));
   }
 
   render() {
-    const { pizza } = this.props;
-    const { editingPizza, pizzaName, pizzaPrice } = this.state;
+    const { isEditing } = this.state;
+    const { pizza, ingredients } = this.props;
     return (
       <div className="pizza-details">
-        {!editingPizza ? (
-          <Fragment>
-            <h3>{pizza.name}</h3>
-            <button onClick={this.toggleEdition}>Edit Pizza</button>
-            <p>$ {pizza.price}</p>
-          </Fragment>
+        {isEditing ? (
+          <PizzaForm 
+            pizza={pizza} 
+            ingredients={ingredients}
+            onSaveChanges={this.onSaveEditing}
+          />
         ) : (
           <Fragment>
-            <label>Pizza Name:</label>
-            <input type="text" value={pizzaName} onChange={e => this.updateInputValue(e, "pizzaName")} />
-            <label>Pizza Price:</label>
-            <input type="text" value={pizzaPrice} onChange={e => this.updateInputValue(e, "pizzaPrice")}  />
-            <button onClick={this.savePizzaEdition}>Save changes</button>
+            <h3>{pizza.name}</h3>
+            <button onClick={this.onDeletePizza}>Delete</button>
+            <button onClick={this.onEditPizza}>Edit</button>
+            <p>$ {pizza.price}</p>
+            <h4>Ingredients</h4>
+            <ul>
+              {pizza.ingredients.map(ing => (
+                <li key={`ingredient-${ing.id}`}>{ing.name}</li>
+              ))}
+            </ul>
           </Fragment>
         )}
-        <h4>Ingredients</h4>
-        <ul>
-          {pizza.ingredients.map((ing, index) => (
-            <li key={`ingredient-${ing.id}`}>{ing.name}</li>
-          ))}
-        </ul>
       </div>
     );
   }
 }
 
-export default PizzaComponent;
+const mapStateToProps = (state) => ({
+  ingredients: state.ingredientsReducer.ingredientList
+});
+
+const mapDispatchToProps = {
+  deletePizza: deletePizzaThunk,
+  editPizza: updatePizzaThunk
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PizzaComponent);

@@ -8,6 +8,17 @@ class PizzaForm extends Component {
     isValidForm: false
   }
 
+  componentDidMount() {
+    if(this.props.pizza) {
+      const { pizza } = this.props;
+      this.setState({
+        pizzaName: pizza.name,
+        pizzaPrice: pizza.price,
+        pizzaIngredients: pizza.ingredients.map(ing => ({ id: ing.ingredientId }))
+      })
+    }
+  }
+
   handlePizzaNameChange = (e) => {
     this.setState({
       pizzaName: e.target.value
@@ -61,7 +72,7 @@ class PizzaForm extends Component {
 
   render() {
     const { ingredients } = this.props;
-    const { isValidForm, pizzaName, pizzaPrice, pizzaIngredients } = this.state;
+    const { isValidForm, pizzaName, pizzaPrice } = this.state;
     return (
       <div className="pizza-form">
         <label>Pizza name:</label>

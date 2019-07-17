@@ -4,7 +4,13 @@ import {
   FETCH_PIZZAS_FAILURE,
   CREATE_PIZZA,
   CREATE_PIZZA_SUCCESS,
-  CREATE_PIZZA_FAILURE
+  CREATE_PIZZA_FAILURE,
+  DELETE_PIZZA,
+  DELETE_PIZZA_SUCCESS,
+  DELETE_PIZZA_FAILURE,
+  UPDATE_PIZZA,
+  UPDATE_PIZZA_SUCCESS,
+  UPDATE_PIZZA_FAILURE
 } from "../actions/pizzaActions";
 
 const initialState = {
@@ -49,6 +55,47 @@ export default function pizzaReducer(state = initialState, action) {
         message: action.payload
       }
     case CREATE_PIZZA_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      }
+    case DELETE_PIZZA: {
+      const pizzaIndex = state.pizzaList.findIndex(el => el.id === action.payload);
+      let pizzaList = [...state.pizzaList];
+      if(pizzaIndex !== -1) {
+        pizzaList.splice(pizzaIndex, 1);
+      }
+      return {
+        ...state,
+        pizzaList
+      }
+    }
+    case DELETE_PIZZA_SUCCESS:
+      return {
+        ...state,
+        message: action.payload
+      }
+    case DELETE_PIZZA_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      }
+    case UPDATE_PIZZA: {
+      return {
+        ...state,
+        pizzaList: state.pizzaList.map((pizza) => {
+          return pizza.id === action.payload.id 
+            ? { ...pizza, name: action.payload.name, price: action.payload.price }
+            : pizza
+        })
+      }
+    }
+    case UPDATE_PIZZA_SUCCESS:
+      return {
+        ...state,
+        message: action.payload
+      }
+    case UPDATE_PIZZA_FAILURE:
       return {
         ...state,
         error: action.payload
