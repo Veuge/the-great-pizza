@@ -39,6 +39,7 @@ class IngredientComponent extends Component {
       <div className="form ingredient-details">
         {isEditing ? (
           <IngredientForm 
+            title="Edit ingredient"
             ingredient={ingredient}
             onSaveChanges={this.onSaveEditing}
           />

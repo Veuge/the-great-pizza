@@ -103,7 +103,10 @@ class PizzaForm extends Component {
             <label>{ing.name}</label>
           </div>
         ))}
-        <button disabled={!isValidForm} onClick={this.onSaveChanges}>Save Pizza</button>
+        <div className="action-buttons">
+          <button disabled={!isValidForm} onClick={this.onSaveChanges}>Save Pizza</button>
+          <button onClick={this.props.onCloseForm}>Close</button>
+        </div>
       </div>
     );
   }

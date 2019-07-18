@@ -12,11 +12,18 @@ class App extends Component {
     showMenu: false,
     showIngredients: true,
     pizzaDetails: null,
-    ingredientDetails: null
+    ingredientDetails: null,
+    showCreatePizzaForm: false,
+    showCreateIngredientForm: false
   }
   async componentDidMount() {
     await this.props.getAllPizzas();
     await this.props.getAllIngredients();
+  }
+  toggleCreationForm = (state) => {
+    this.setState(currentState => ({
+      [state]: !currentState[state]
+    }))
   }
   toggleMenuView = () => {
     this.setState({
@@ -59,13 +66,16 @@ class App extends Component {
     })
   }
   renderMenu = () => {
-    const { pizzaDetails } = this.state;
+    const { pizzaDetails, showCreatePizzaForm } = this.state;
     const { pizzaList, ingredientList } = this.props;
     return (
       <div className="tab-container menu-container">
         <h2 className="tab-title">Pizzas Menu</h2>
         <ul className="items-list pizza-list">
-          <li className="pizza-item header">Pizzas</li>
+          <div className="header-container ">
+            <li className="pizza-item header">Pizzas</li>
+            <button className="pizza" onClick={() => this.toggleCreationForm("showCreatePizzaForm")}>Create pizza</button>
+          </div>
           {pizzaList.map(pizza => (
             <li 
               className="pizza-item"
@@ -76,11 +86,14 @@ class App extends Component {
             </li>
           ))}
         </ul>
-        <PizzaForm
-          title="Create a new pizza"
-          onSaveChanges={this.onSaveNewPizza}
-          ingredients={ingredientList}
-        />
+        {showCreatePizzaForm && (
+          <PizzaForm
+            title="Create a new pizza"
+            onSaveChanges={this.onSaveNewPizza}
+            ingredients={ingredientList}
+            onCloseForm={() => this.toggleCreationForm("showCreatePizzaForm")}
+          />
+        )}
         {pizzaDetails !== null && (
           <PizzaComponent 
             pizza={pizzaDetails}
@@ -92,13 +105,16 @@ class App extends Component {
   }
 
   renderIngredients = () => {
-    const { ingredientDetails } = this.state;
+    const { ingredientDetails, showCreateIngredientForm } = this.state;
     const { ingredientList } = this.props;
     return (
       <div className="tab-container ingredient-container">
         <h2 className="tab-title">Ingredients List</h2>
         <ul className="items-list ingredient-list">
-          <li className="ingredient-item header">Ingredients</li>
+          <div className="header-container ">
+            <li className="ingredient-item header">Ingredients</li>
+            <button className="ingredient" onClick={() => this.toggleCreationForm("showCreateIngredientForm")}>Create Ingredient</button>
+          </div>
           {ingredientList.map(ing => (
             <li
               className="ingredient-item"
@@ -109,7 +125,13 @@ class App extends Component {
             </li>
           ))}
         </ul>
-        <IngredientForm onSaveChanges={this.onSaveNewIngredient} />
+        {showCreateIngredientForm && (
+          <IngredientForm 
+            title="Create new ingredient"
+            onSaveChanges={this.onSaveNewIngredient}
+            onCloseForm={() => this.toggleCreationForm("showCreateIngredientForm")}
+          />
+        )}
         {ingredientDetails !== null && (
           <IngredientComponent 
             ingredient={ingredientDetails}

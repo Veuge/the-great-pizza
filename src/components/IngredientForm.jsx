@@ -43,15 +43,19 @@ class IngredientForm extends Component {
   }
 
   render() {
+    const { title } = this.props;
     const { isValidForm, ingredientName } = this.state;
     return (
       <div className="form ingredient-form">
-        <h2 className="details-title">Ingredient Form</h2>
+        <h2 className="details-title">{title}</h2>
         <div className="input-row">
           <label className="">Ingredient name:</label>
           <input type="text" value={ingredientName} onChange={this.handleIngredientNameChange} />
         </div>
-        <button disabled={!isValidForm} onClick={this.onSaveChanges}>Save Ingredient</button>
+        <div className="action-buttons">
+          <button disabled={!isValidForm} onClick={this.onSaveChanges}>Save Ingredient</button>
+          <button onClick={this.props.onCloseForm}>Close</button>
+        </div>
       </div>
     );
   }
