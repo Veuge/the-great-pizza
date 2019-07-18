@@ -62,11 +62,18 @@ class App extends Component {
     const { pizzaDetails } = this.state;
     const { pizzaList, ingredientList } = this.props;
     return (
-      <Fragment>
-        <h3>Pizzas Menu</h3>
-        <ul className="pizza-list">
+      <div className="tab-container menu-container">
+        <h2 className="tab-title">Pizzas Menu</h2>
+        <ul className="items-list pizza-list">
+          <li className="pizza-item header">Pizzas</li>
           {pizzaList.map(pizza => (
-            <li onClick={() => this.showPizzaDetails(pizza)} key={`pizza-${pizza.id}`}>{pizza.name}</li>
+            <li 
+              className="pizza-item"
+              onClick={() => this.showPizzaDetails(pizza)}
+              key={`pizza-${pizza.id}`}
+            >
+              {pizza.name}
+            </li>
           ))}
         </ul>
         <PizzaForm 
@@ -79,7 +86,7 @@ class App extends Component {
             onCloseDetails={this.closePizzaDetails}
           />
         )}
-      </Fragment>
+      </div>
     );
   }
 
@@ -87,11 +94,18 @@ class App extends Component {
     const { ingredientDetails } = this.state;
     const { ingredientList } = this.props;
     return (
-      <Fragment>
-        <h3>Ingredients List</h3>
-        <ul className="ingredient-list">
+      <div className="tab-container ingredient-container">
+        <h2 className="tab-title">Ingredients List</h2>
+        <ul className="items-list ingredient-list">
+          <li className="ingredient-item header">Ingredients</li>
           {ingredientList.map(ing => (
-            <li onClick={() => this.showIngredientDetails(ing)} key={`ingredient-${ing.id}`}>{ing.name}</li>
+            <li
+              className="ingredient-item"
+              onClick={() => this.showIngredientDetails(ing)}
+              key={`ingredient-${ing.id}`}
+            >
+              {ing.name}
+            </li>
           ))}
           <IngredientForm onSaveChanges={this.onSaveNewIngredient} />
           {ingredientDetails !== null && (
@@ -100,7 +114,7 @@ class App extends Component {
               onCloseDetails={this.closeIngredientDetails} />
           )}
         </ul>
-      </Fragment>
+      </div>
     );
   }
 
@@ -112,9 +126,19 @@ class App extends Component {
         <h1 className="app-name">The Great Pizza</h1>
         {error && <p>ERROR</p>}
         {loading && <p>Loading...</p>}
-        <div>
-          <button onClick={this.toggleMenuView}>See the Menu</button>
-          <button onClick={this.toggleIngredientsView}>See the Ingredients</button>
+        <div className="tabs-container">
+          <button 
+            className="tab menu"
+            onClick={this.toggleMenuView}
+          >
+            See the Menu
+          </button>
+          <button
+            className="tab ingredient"
+            onClick={this.toggleIngredientsView}
+          >
+            See the Ingredients
+          </button>
         </div>
         {showMenu && this.renderMenu()}
         {showIngredients && this.renderIngredients()}

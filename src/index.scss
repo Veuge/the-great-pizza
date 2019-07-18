@@ -1,25 +1,48 @@
+@import "variables.scss";
+@import url('https://fonts.googleapis.com/css?family=Lobster|Titillium+Web&display=swap');
 @import "app.scss";
-
-// COLORS
-$white: #ecf0f1;
-$black: #2c3e50;
 
 body {
   margin: 20px;
   background-color: $white;
   color: $black;
+  font-family: 'Titillium Web', sans-serif;
 }
 
-.pizza-list {
-  li {
-    text-decoration: none;
-    cursor: pointer;
+.app {
+  .app-name {
+    font-family: 'Lobster', cursive;
+    color: $primary;
+    font-size: 3em;
   }
 }
 
-.ingredient-list {
+.items-list {
+  list-style: none;
+  padding-inline-start: 0;
   li {
-    text-decoration: none;
+    padding: 12px 15px;
     cursor: pointer;
+    font-size: 18px;
+    border-bottom: 1px solid black;
+    &.header {
+      font-weight: 600;
+      cursor: default;
+    }
+    &.pizza-item {
+      border-color: $menuPrimary;
+    }
+    &.ingredient-item {
+      border-color: $ingredientPrimary;
+    }
   }
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
 }
