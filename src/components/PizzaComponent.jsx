@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { deletePizzaThunk, updatePizzaThunk } from "../api/pizzasApi";
 import PizzaForm from "./PizzaForm";
 
@@ -15,9 +16,9 @@ class PizzaComponent extends Component {
   }
 
   onEditPizza = () => {
-    this.setState({
-      isEditing: true
-    })
+    this.setState(currentState => ({
+      isEditing: !currentState.isEditing
+    }))
   }
 
   onSaveEditing = (payload) => {
@@ -39,10 +40,11 @@ class PizzaComponent extends Component {
       <div className="form pizza-details">
         {isEditing ? (
           <PizzaForm
-            title="Edit pizza"
             pizza={pizza} 
-            ingredients={ingredients}
             onSaveChanges={this.onSaveEditing}
+            onCloseForm={this.onEditPizza}
+            ingredients={ingredients}
+            title="Edit pizza"
           />
         ) : (
           <Fragment>
@@ -74,6 +76,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   deletePizza: deletePizzaThunk,
   editPizza: updatePizzaThunk
+}
+
+PizzaComponent.propTypes = {
+  pizza: PropTypes.object.isRequired,
+  ingredients: PropTypes.array.isRequired,
+  deletePizza: PropTypes.func.isRequired,
+  editPizza: PropTypes.func.isRequired,
+  onCloseDetails: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PizzaComponent);

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { deleteIngredientThunk, updateIngredientThunk } from "../api/ingredientsApi";
 import IngredientForm from "./IngredientForm";
 
@@ -15,9 +16,9 @@ class IngredientComponent extends Component {
   }
 
   onEditIngredient = () => {
-    this.setState({
-      isEditing: true
-    })
+    this.setState(currentState => ({
+      isEditing: !currentState.isEditing
+    }))
   }
 
   onSaveEditing = (payload) => {
@@ -39,9 +40,10 @@ class IngredientComponent extends Component {
       <div className="form ingredient-details">
         {isEditing ? (
           <IngredientForm 
-            title="Edit ingredient"
             ingredient={ingredient}
             onSaveChanges={this.onSaveEditing}
+            onCloseForm={this.onEditIngredient}
+            title="Edit ingredient"
           />
         ) : (
           <Fragment>
@@ -64,6 +66,13 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   deleteIngredient: deleteIngredientThunk,
   editIngredient: updateIngredientThunk
+}
+
+IngredientComponent.propTypes = {
+  ingredient: PropTypes.object.isRequired,
+  deleteIngredient: PropTypes.func.isRequired,
+  editIngredient: PropTypes.func.isRequired,
+  onCloseDetails: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientComponent);

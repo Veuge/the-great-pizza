@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class IngredientForm extends Component {
   state = {
@@ -48,7 +49,7 @@ class IngredientForm extends Component {
     const { isValidForm, ingredientName } = this.state;
     return (
       <div className="form ingredient-form">
-        <h2 className="details-title">{title}</h2>
+        <h2 className="details-title">{title || "Ingredients Form"}</h2>
         <div className="input-row">
           <label className="">Ingredient name:</label>
           <input type="text" value={ingredientName} onChange={this.handleIngredientNameChange} />
@@ -60,6 +61,13 @@ class IngredientForm extends Component {
       </div>
     );
   }
+}
+
+IngredientForm.propTypes = {
+  ingredient: PropTypes.object,
+  onSaveChanges: PropTypes.func.isRequired,
+  onCloseForm: PropTypes.func.isRequired,
+  title: PropTypes.string
 }
 
 export default IngredientForm;

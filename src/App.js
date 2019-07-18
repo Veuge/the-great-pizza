@@ -88,10 +88,10 @@ class App extends Component {
         </ul>
         {showCreatePizzaForm && (
           <PizzaForm
-            title="Create a new pizza"
             onSaveChanges={this.onSaveNewPizza}
-            ingredients={ingredientList}
             onCloseForm={() => this.toggleCreationForm("showCreatePizzaForm")}
+            ingredients={ingredientList}
+            title="Create a new pizza"
           />
         )}
         {pizzaDetails !== null && (
@@ -127,9 +127,9 @@ class App extends Component {
         </ul>
         {showCreateIngredientForm && (
           <IngredientForm 
-            title="Create new ingredient"
             onSaveChanges={this.onSaveNewIngredient}
             onCloseForm={() => this.toggleCreationForm("showCreateIngredientForm")}
+            title="Create new ingredient"
           />
         )}
         {ingredientDetails !== null && (
