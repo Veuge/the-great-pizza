@@ -39,9 +39,9 @@ const createIngredientFailure = error => ({
   type: CREATE_INGREDIENT_FAILURE,
   payload: { error }
 });
-const deleteIngredient = newIngredient => ({
+const deleteIngredient = ingredient => ({
   type: DELETE_INGREDIENT,
-  payload: newIngredient
+  payload: ingredient
 });
 
 const deleteIngredientSuccess = message => ({
