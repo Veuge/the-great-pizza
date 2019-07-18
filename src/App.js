@@ -76,7 +76,8 @@ class App extends Component {
             </li>
           ))}
         </ul>
-        <PizzaForm 
+        <PizzaForm
+          title="Create a new pizza"
           onSaveChanges={this.onSaveNewPizza}
           ingredients={ingredientList}
         />

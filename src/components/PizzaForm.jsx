@@ -78,18 +78,23 @@ class PizzaForm extends Component {
   }
 
   render() {
-    const { ingredients } = this.props;
+    const { ingredients, title } = this.props;
     const { isValidForm, pizzaName, pizzaPrice } = this.state;
     return (
       <div className="form pizza-form">
-        <label>Pizza name:</label>
-        <input type="text" value={pizzaName} onChange={this.handlePizzaNameChange} />
-        <label>Pizza price:</label>
-        <input type="number" value={pizzaPrice} onChange={this.handlePizzaPriceChange} />
+        <h2 className="details-title">{title}</h2>
+        <div className="input-row">
+          <label>Pizza name:</label>
+          <input type="text" value={pizzaName} onChange={this.handlePizzaNameChange} />
+        </div>
+        <div className="input-row">
+          <label>Pizza price:</label>
+          <input type="number" value={pizzaPrice} onChange={this.handlePizzaPriceChange} />
+        </div>
         <label>Ingredients</label>
         {ingredients.map((ing, index) => (
-          <div key={`ingredient-${ing.id}`}>
-            <input 
+          <div className="ingredient-checkbox"  key={`ingredient-${ing.id}`}>
+            <input
               type="checkbox"
               value={ing.id}
               checked={this.getIngredientIndex(ing.id) !== -1}

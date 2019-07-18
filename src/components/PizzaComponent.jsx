@@ -36,18 +36,18 @@ class PizzaComponent extends Component {
     const { isEditing } = this.state;
     const { pizza, ingredients } = this.props;
     return (
-      <div className="pizza-details">
+      <div className="form pizza-details">
         {isEditing ? (
-          <PizzaForm 
+          <PizzaForm
+            title="Edit pizza"
             pizza={pizza} 
             ingredients={ingredients}
             onSaveChanges={this.onSaveEditing}
           />
         ) : (
           <Fragment>
+            <h2 className="details-title">Pizza details</h2>
             <h3>{pizza.name}</h3>
-            <button onClick={this.onDeletePizza}>Delete</button>
-            <button onClick={this.onEditPizza}>Edit</button>
             <p>$ {pizza.price}</p>
             <h4>Ingredients</h4>
             <ul>
@@ -55,6 +55,11 @@ class PizzaComponent extends Component {
                 <li key={`ingredient-${ing.id}`}>{ing.name}</li>
               ))}
             </ul>
+            <div className="action-buttons">
+              <button onClick={this.onDeletePizza}>Delete</button>
+              <button onClick={this.onEditPizza}>Edit</button>
+              <button onClick={this.props.onCloseDetails}>Close</button>
+            </div>
           </Fragment>
         )}
       </div>
