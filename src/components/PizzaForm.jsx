@@ -31,14 +31,14 @@ class PizzaForm extends Component {
     }, this.validateForm);
   }
 
-  handleIngredientCheck = (e, ingredientId) => {
+  handleIngredientCheck = (e, ingredient) => {
     const { pizzaIngredients } = this.state;
     let newPizzaIngredients = [ ...pizzaIngredients ];
-    const index = this.getIngredientIndex(ingredientId);
+    const index = this.getIngredientIndex(ingredient.id);
     if (index !== -1) {
       newPizzaIngredients.splice(index, 1);
     } else {
-      newPizzaIngredients = [ ...newPizzaIngredients, { id: ingredientId } ]
+      newPizzaIngredients = [ ...newPizzaIngredients, ingredient ]
     }
     this.setState({
       pizzaIngredients: newPizzaIngredients
@@ -74,7 +74,8 @@ class PizzaForm extends Component {
       pizzaPrice: "",
       pizzaIngredients: [],
       isValidForm: false
-    })
+    });
+    this.props.onCloseForm();
   }
 
   render() {
@@ -96,9 +97,9 @@ class PizzaForm extends Component {
           <div className="ingredient-checkbox"  key={`ingredient-${ing.id}`}>
             <input
               type="checkbox"
-              value={ing.id}
+              value={ing}
               checked={this.getIngredientIndex(ing.id) !== -1}
-              onChange={(e) => this.handleIngredientCheck(e, ing.id)}
+              onChange={(e) => this.handleIngredientCheck(e, ing)}
             />
             <label>{ing.name}</label>
           </div>

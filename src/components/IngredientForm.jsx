@@ -39,7 +39,8 @@ class IngredientForm extends Component {
     this.setState({
       ingredientName: "",
       isValidForm: false
-    })
+    });
+    this.props.onCloseForm();
   }
 
   render() {

@@ -9,8 +9,8 @@ import IngredientForm from "./components/IngredientForm";
 
 class App extends Component {
   state = {
-    showMenu: false,
-    showIngredients: true,
+    showMenu: true,
+    showIngredients: false,
     pizzaDetails: null,
     ingredientDetails: null,
     showCreatePizzaForm: false,
