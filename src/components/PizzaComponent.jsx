@@ -11,7 +11,7 @@ class PizzaComponent extends Component {
   onDeletePizza = () => {
     const { pizza } = this.props;
     this.props.deletePizza(pizza);
-    this.props.onDeletePizza();
+    this.props.onCloseDetails();
   }
 
   onEditPizza = () => {
@@ -29,6 +29,7 @@ class PizzaComponent extends Component {
     this.setState({
       isEditing: false
     });
+    this.props.onCloseDetails()
   }
 
   render() {

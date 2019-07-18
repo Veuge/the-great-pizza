@@ -68,6 +68,13 @@ class PizzaForm extends Component {
       ingredients: pizzaIngredients
     }
     this.props.onSaveChanges(payload);
+    // Reset form defaults
+    this.setState({
+      pizzaName: "",
+      pizzaPrice: "",
+      pizzaIngredients: [],
+      isValidForm: false
+    })
   }
 
   render() {
