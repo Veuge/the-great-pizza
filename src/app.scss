@@ -50,4 +50,48 @@
       }
     }
   }
+
+  .form {
+    margin: 10px;
+    padding: 20px;
+    color: $white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    * {
+      margin: 15px;
+    }
+    label {
+      font-weight: 600;
+    }
+    input {
+      height: 20px;
+    }
+    button {
+      background-color: $white;
+      color: $black;
+      width: 200px;
+    }
+    .details-title {
+      text-align: center;
+      font-family: 'Lobster', cursive;
+    }
+    .input-row {
+      display: flex;
+      label {
+          flex: 1;
+      }
+      input {
+          flex: 4;
+      }
+  }
+    .action-buttons {
+      display: flex;
+      justify-content: space-around;
+      button {
+        flex: 1;
+      }
+    }
+  }
 }

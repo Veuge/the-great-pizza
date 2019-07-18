@@ -36,7 +36,7 @@ class IngredientComponent extends Component {
     const { isEditing } = this.state;
     const { ingredient } = this.props;
     return (
-      <div className="ingredient-details">
+      <div className="form ingredient-details">
         {isEditing ? (
           <IngredientForm 
             ingredient={ingredient}
@@ -44,9 +44,13 @@ class IngredientComponent extends Component {
           />
         ) : (
           <Fragment>
+            <h2 className="details-title">Ingredient details</h2>
             <h3>{ingredient.name}</h3>
-            <button onClick={this.onDeleteIngredient}>Delete</button>
-            <button onClick={this.onEditIngredient}>Edit</button>
+            <div className="action-buttons">
+              <button onClick={this.onDeleteIngredient}>Delete</button>
+              <button onClick={this.onEditIngredient}>Edit</button>
+              <button onClick={this.props.onCloseDetails}>Close</button>
+            </div>
           </Fragment>
         )}
       </div>

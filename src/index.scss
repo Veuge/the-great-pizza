@@ -1,6 +1,9 @@
 @import "variables.scss";
 @import url('https://fonts.googleapis.com/css?family=Lobster|Titillium+Web&display=swap');
 @import "app.scss";
+@import "./components/pizza-form.scss";
+@import "./components/ingredient-form.scss";
+@import "./components/ingredient-component.scss";
 
 body {
   margin: 20px;

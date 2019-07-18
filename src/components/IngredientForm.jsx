@@ -15,30 +15,10 @@ class IngredientForm extends Component {
     }
   }
 
-  handlePizzaNameChange = (e) => {
+  handleIngredientNameChange = (e) => {
     this.setState({
       ingredientName: e.target.value
     }, this.validateForm);
-  }
-  
-  handlePizzaPriceChange = (e) => {
-    this.setState({
-      ingredientPrice: e.target.value
-    }, this.validateForm);
-  }
-
-  handleIngredientCheck = (e, ingredientId) => {
-    const { ingredientIngredients } = this.state;
-    let newPizzaIngredients = [ ...ingredientIngredients ];
-    const index = this.getIngredientIndex(ingredientId);
-    if (index !== -1) {
-      newPizzaIngredients.splice(index, 1);
-    } else {
-      newPizzaIngredients = [ ...newPizzaIngredients, { id: ingredientId } ]
-    }
-    this.setState({
-      ingredientIngredients: newPizzaIngredients
-    })
   }
 
   validateForm = () => {
@@ -65,9 +45,12 @@ class IngredientForm extends Component {
   render() {
     const { isValidForm, ingredientName } = this.state;
     return (
-      <div className="ingredient-form">
-        <label>Ingredient name:</label>
-        <input type="text" value={ingredientName} onChange={this.handlePizzaNameChange} />
+      <div className="form ingredient-form">
+        <h2 className="details-title">Ingredient Form</h2>
+        <div className="input-row">
+          <label className="">Ingredient name:</label>
+          <input type="text" value={ingredientName} onChange={this.handleIngredientNameChange} />
+        </div>
         <button disabled={!isValidForm} onClick={this.onSaveChanges}>Save Ingredient</button>
       </div>
     );

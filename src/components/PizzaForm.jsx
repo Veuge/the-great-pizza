@@ -81,7 +81,7 @@ class PizzaForm extends Component {
     const { ingredients } = this.props;
     const { isValidForm, pizzaName, pizzaPrice } = this.state;
     return (
-      <div className="pizza-form">
+      <div className="form pizza-form">
         <label>Pizza name:</label>
         <input type="text" value={pizzaName} onChange={this.handlePizzaNameChange} />
         <label>Pizza price:</label>

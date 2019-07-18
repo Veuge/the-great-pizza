@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllPizzasThunk, createPizzaThunk } from "./api/pizzasApi";
 import { getAllIngredientsThunk, createIngredientThunk } from "./api/ingredientsApi";
@@ -10,7 +10,7 @@ import IngredientForm from "./components/IngredientForm";
 class App extends Component {
   state = {
     showMenu: false,
-    showIngredients: false,
+    showIngredients: true,
     pizzaDetails: null,
     ingredientDetails: null
   }
@@ -107,13 +107,13 @@ class App extends Component {
               {ing.name}
             </li>
           ))}
-          <IngredientForm onSaveChanges={this.onSaveNewIngredient} />
-          {ingredientDetails !== null && (
-            <IngredientComponent 
-              ingredient={ingredientDetails}
-              onCloseDetails={this.closeIngredientDetails} />
-          )}
         </ul>
+        <IngredientForm onSaveChanges={this.onSaveNewIngredient} />
+        {ingredientDetails !== null && (
+          <IngredientComponent 
+            ingredient={ingredientDetails}
+            onCloseDetails={this.closeIngredientDetails} />
+        )}
       </div>
     );
   }
